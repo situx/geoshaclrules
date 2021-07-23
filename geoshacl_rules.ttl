@@ -1,0 +1,13 @@
+<http://atlantgis.squirrel.link/ontology#Feature> sh:rule [
+a sh:TripleRule ;
+sh:subject sh:this ;
+sh:predicate geo:sfEquals ;
+sh:object true ; 
+
+sh:condition [
+ sh:property [
+ sh:path <http://atlantgis.squirrel.link/ontology#sfEquals> ;
+sh:value "true"^^xsd:boolean 
+];
+];
+]. 
