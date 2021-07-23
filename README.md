@@ -1,0 +1,2 @@
+# geoshaclrules
+GeoSHACL applied
