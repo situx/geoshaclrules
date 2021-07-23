@@ -104,14 +104,14 @@
 #################################################################
 
 ###  https://w3id.org/geoshacl#containsConstraint
-:containsConstraint rdf:type owl:NamedIndividual ,
+:sfContainsConstraint rdf:type owl:NamedIndividual ,
                              <http://www.w3.org/ns/shacl#ConstraintComponent> ;
                     rdfs:comment "An implementation of the \"contains\" relationship between two geometries as per the Simple Feature Access standard. It is implemented using GeoSPARQL's geof:sfContains filter function." ;
-                    <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :contains
+                    <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :sfContains
                                                            ] ;
-                    <http://www.w3.org/ns/shacl#validator> _:genid2 .
+                    <http://www.w3.org/ns/shacl#validator> :sfContainsConstraintAskValidator .
 
-_:genid2 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+:sfContainsConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
           <http://www.w3.org/ns/shacl#ask> """
             PREFIX geo: <http://www.opengis.net/ont/geosparql#>
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
@@ -129,16 +129,41 @@ _:genid2 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
         """ ;
           <http://www.w3.org/ns/shacl#message> "Value does not contain {$contains}." .
 
+          
+:ehContainsConstraint rdf:type owl:NamedIndividual ,
+                             <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                    rdfs:comment "An implementation of the \"contains\" relationship between two geometries as per the Egenhofer standard. It is implemented using GeoSPARQL's geof:ehContains filter function." ;
+                    <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :ehContains
+                                                           ] ;
+                    <http://www.w3.org/ns/shacl#validator> :ehContainsConstraintAskValidator .
+
+:ehContainsConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:ehContains($value, $contains) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($contains) )
+        	    	$this $contains ?otherValue .
+        	    	FILTER( geof:ehContains($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value does not contain {$contains}." .
 
 ###  https://w3id.org/geoshacl#crossesConstraint
-:crossesConstraint rdf:type owl:NamedIndividual ,
+:sfCrossesConstraint rdf:type owl:NamedIndividual ,
                             <http://www.w3.org/ns/shacl#ConstraintComponent> ;
                    rdfs:comment "An implementation of the \"crosses\" relationship between two geometries as per the Simple Feature Access standard. It is implemented using GeoSPARQL's geof:sfCrosses filter function." ;
-                   <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :crosses
+                   <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :sfCrosses
                                                           ] ;
-                   <http://www.w3.org/ns/shacl#validator> _:genid4 .
+                   <http://www.w3.org/ns/shacl#validator> :sfCrossesConstraintAskValidator .
 
-_:genid4 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+:sfCrossesConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
           <http://www.w3.org/ns/shacl#ask> """
             PREFIX geo: <http://www.opengis.net/ont/geosparql#>
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
@@ -158,14 +183,14 @@ _:genid4 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
 
 
 ###  https://w3id.org/geoshacl#disjointConstraint
-:disjointConstraint rdf:type owl:NamedIndividual ,
+:sfDisjointConstraint rdf:type owl:NamedIndividual ,
                              <http://www.w3.org/ns/shacl#ConstraintComponent> ;
                     rdfs:comment "An implementation of the \"disjoint\" relationship between two geometries as per the Simple Feature Access standard. It is implemented using GeoSPARQL's geof:sfDisjoint filter function." ;
-                    <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :disjoint
+                    <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :sfDisjoint
                                                            ] ;
-                    <http://www.w3.org/ns/shacl#validator> _:genid6 .
+                    <http://www.w3.org/ns/shacl#validator> :sfDisjointConstraintAskValidator .
 
-_:genid6 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+:sfDisjointConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
           <http://www.w3.org/ns/shacl#ask> """
             PREFIX geo: <http://www.opengis.net/ont/geosparql#>
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
@@ -183,16 +208,42 @@ _:genid6 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
         """ ;
           <http://www.w3.org/ns/shacl#message> "Value is not disjoint with {$disjoint}." .
 
+          
+:ehDisjointConstraint rdf:type owl:NamedIndividual ,
+                             <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                    rdfs:comment "An implementation of the \"disjoint\" relationship between two geometries as per the Egenhofer standard. It is implemented using GeoSPARQL's geof:ehDisjoint filter function." ;
+                    <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :ehDisjoint
+                                                           ] ;
+                    <http://www.w3.org/ns/shacl#validator> :ehDisjointConstraintAskValidator .
+
+:ehDisjointConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:ehDisjoint($value, $disjoint) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($disjoint) )
+        	    	$this $disjoint ?otherValue .
+        	    	FILTER( geof:ehDisjoint($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not disjoint with {$disjoint}." .          
+
 
 ###  https://w3id.org/geoshacl#equalsConstraint
-:equalsConstraint rdf:type owl:NamedIndividual ,
+:sfEqualsConstraint rdf:type owl:NamedIndividual ,
                            <http://www.w3.org/ns/shacl#ConstraintComponent> ;
                   rdfs:comment "An implementation of the \"equals\" relationship between two geometries as per the Simple Feature Access standard. It is implemented using GeoSPARQL's geof:sfEquals filter function." ;
-                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :equals
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :sfEquals
                                                          ] ;
-                  <http://www.w3.org/ns/shacl#validator> _:genid8 .
+                  <http://www.w3.org/ns/shacl#validator> :sfEqualsConstraintAskValidator .
 
-_:genid8 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+:sfEqualsConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
           <http://www.w3.org/ns/shacl#ask> """
             PREFIX geo: <http://www.opengis.net/ont/geosparql#>
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
@@ -211,15 +262,41 @@ _:genid8 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
           <http://www.w3.org/ns/shacl#message> "Value is not equal to {$equals} (note: points cannot be equal as per GeoSPARQL)" .
 
 
+:ehEqualsConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"equals\" relationship between two geometries as per the Egenhofer standard. It is implemented using GeoSPARQL's geof:ehEquals filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :sfEquals
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :ehEqualsConstraintAskValidator .
+
+:ehEqualsConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:ehEquals($value, $equals) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($equals) )
+        	    	$this $equals ?otherValue .
+        	    	FILTER( geof:ehEquals($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$equals} (note: points cannot be equal as per GeoSPARQL)" .
+          
+          
 ###  https://w3id.org/geoshacl#intersectsConstraint
-:intersectsConstraint rdf:type owl:NamedIndividual ,
+:sfIntersectsConstraint rdf:type owl:NamedIndividual ,
                                <http://www.w3.org/ns/shacl#ConstraintComponent> ;
                       rdfs:comment "An implementation of the \"intersects\" relationship between two geometries as per the Simple Feature Access standard. It is implemented using GeoSPARQL's geof:sfIntersects filter function." ;
-                      <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :intersects
+                      <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :sfIntersects
                                                              ] ;
-                      <http://www.w3.org/ns/shacl#validator> _:genid10 .
+                      <http://www.w3.org/ns/shacl#validator> :sfIntersectsConstraintAskValidator .
 
-_:genid10 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+:sfIntersectsConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
            <http://www.w3.org/ns/shacl#ask> """
             PREFIX geo: <http://www.opengis.net/ont/geosparql#>
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
@@ -237,11 +314,36 @@ _:genid10 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
         """ ;
            <http://www.w3.org/ns/shacl#message> "Value does not intersect with {$intersects}." .
 
+:ehMeetConstraint rdf:type owl:NamedIndividual ,
+                               <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                      rdfs:comment "An implementation of the \"meet\" relationship between two geometries as per the Egenhofer standard. It is implemented using GeoSPARQL's geof:ehMeet filter function." ;
+                      <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :ehMeet
+                                                             ] ;
+                      <http://www.w3.org/ns/shacl#validator> :ehMeetConstraintAskValidator .
+
+:ehMeetConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:ehMeet($value, $meet) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($meet) )
+        	    	$this $meet ?otherValue .
+        	    	FILTER( geof:ehMeet($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Value does not intersect with {$intersects}." .           
+
 
 ###  https://w3id.org/geoshacl#intuitiveEqualsConstraint
 :intuitiveEqualsConstraint rdf:type owl:NamedIndividual ,
                                     <http://www.w3.org/ns/shacl#ConstraintComponent> ;
-                           rdfs:comment "An alternative implementation of the \"equals\" relationship between two geometries. The Simple Features Access and GeoSPARQL assume that two points can never be equivalent as their boundaries are empty and geometries must share the same non-empty boundary. This can be counter-intuitive. This implementation of \"equals\" is based on GeoSPARQL's sf:within and sf:contains filter functions." ;
+                           rdfs:comment "An alternative implementation of the \"equals\" relationship between two geometries. The Simple Features Access and GeoSPARQL assume that two points can never be equivalent as their boundaries are empty and geometries must share the same non-empty boundary. This can be counter-intuitive. This implementation of \"equals\" is based on GeoSPARQL's sf:sfWithin and sf:sfContains filter functions." ;
                            <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :intuitiveEquals
                                                                   ] ;
                            <http://www.w3.org/ns/shacl#validator> _:genid12 .
@@ -268,14 +370,14 @@ _:genid12 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
 
 
 ###  https://w3id.org/geoshacl#overlapsConstraint
-:overlapsConstraint rdf:type owl:NamedIndividual ,
+:sfOverlapsConstraint rdf:type owl:NamedIndividual ,
                              <http://www.w3.org/ns/shacl#ConstraintComponent> ;
                     rdfs:comment "An implementation of the \"overlaps\" relationship between two geometries as per the Simple Feature Access standard. It is implemented using GeoSPARQL's geof:sfOverlaps filter function." ;
-                    <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :overlaps
+                    <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :sfOverlaps
                                                            ] ;
-                    <http://www.w3.org/ns/shacl#validator> _:genid14 .
+                    <http://www.w3.org/ns/shacl#validator> :sfOverlapsConstraintAskValidator .
 
-_:genid14 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+:sfOverlapsConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
            <http://www.w3.org/ns/shacl#ask> """
             PREFIX geo: <http://www.opengis.net/ont/geosparql#>
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
@@ -293,16 +395,41 @@ _:genid14 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
         """ ;
            <http://www.w3.org/ns/shacl#message> "Value does not overlap with {$overlaps}." .
 
+:ehOverlapConstraint rdf:type owl:NamedIndividual ,
+                             <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                    rdfs:comment "An implementation of the \"overlap\" relationship between two geometries as per the Egenhofer standard. It is implemented using GeoSPARQL's geof:ehOverlap filter function." ;
+                    <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :ehOverlap
+                                                           ] ;
+                    <http://www.w3.org/ns/shacl#validator> :ehOverlapConstraintAskValidator .
+
+:ehOverlapConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:ehOverlap($value, $overlaps) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($overlaps) )
+        	    	$this $overlaps ?otherValue .
+        	    	FILTER( geof:ehOverlap($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Value does not overlap with {$overlaps}." .
+           
 
 ###  https://w3id.org/geoshacl#touchesConstraint
-:touchesConstraint rdf:type owl:NamedIndividual ,
+:sfTouchesConstraint rdf:type owl:NamedIndividual ,
                             <http://www.w3.org/ns/shacl#ConstraintComponent> ;
                    rdfs:comment "An implementation of the \"touches\" relationship between two geometries as per the Simple Feature Access standard. It is implemented using GeoSPARQL's geof:sfTouches filter function." ;
-                   <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :touches
+                   <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :sfTouches
                                                           ] ;
-                   <http://www.w3.org/ns/shacl#validator> _:genid16 .
+                   <http://www.w3.org/ns/shacl#validator> :sfTouchesConstraintAskValidator .
 
-_:genid16 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+:sfTouchesConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
            <http://www.w3.org/ns/shacl#ask> """
             PREFIX geo: <http://www.opengis.net/ont/geosparql#>
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
@@ -321,15 +448,15 @@ _:genid16 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
            <http://www.w3.org/ns/shacl#message> "Value does not touch {$touches}." .
 
 
-###  https://w3id.org/geoshacl#withinConstraint
-:withinConstraint rdf:type owl:NamedIndividual ,
+###  https://w3id.org/geoshacl#sfWithinConstraint
+:sfWithinConstraint rdf:type owl:NamedIndividual ,
                            <http://www.w3.org/ns/shacl#ConstraintComponent> ;
                   rdfs:comment "An implementation of the \"within\" relationship between two geometries as per the Simple Feature Access standard. It is implemented using GeoSPARQL's geof:sfWithin filter function." ;
-                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :within
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :sfWithin
                                                          ] ;
-                  <http://www.w3.org/ns/shacl#validator> _:genid18 .
+                  <http://www.w3.org/ns/shacl#validator> :sfWithinConstraintAskValidator .
 
-_:genid18 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+:sfWithinConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
            <http://www.w3.org/ns/shacl#ask> """
             PREFIX geo: <http://www.opengis.net/ont/geosparql#>
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
@@ -349,4 +476,3 @@ _:genid18 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
 
 
 ###  Generated by the OWL API (version 5.1.14) https://github.com/owlcs/owlapi/
-{"mode":"full","isActive":false}
