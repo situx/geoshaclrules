@@ -22,8 +22,8 @@ jobs:
          sudo pip3 install wheel pylode rdflib rdflib-jsonld
          mkdir docs
          cd docs
-         pylode -i ../geoshacl.ttl -o index.html
-         pylode -i ../geoshacl_rules.ttl -o index.html
+         pylode -i ../geoshacl.ttl -o index.html -p vocpub
+         pylode -i ../geoshacl_rules.ttl -o rules.html -p vocpub
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
