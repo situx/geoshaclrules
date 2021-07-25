@@ -9,7 +9,6 @@
 @prefix ex: <http://www.example.com/data/> .
 @prefix geof: <http://www.opengis.net/def/function/geosparql/>.
 @base <https://w3id.org/geoshacl> .
-
 	
 :GeometryEmptyNodeShape rdf:type sh:NodeShape;
     sh:targetClass geo:Geometry ;
