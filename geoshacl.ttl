@@ -7,6 +7,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <https://w3id.org/geoshacl> .
+@prefix gsh: <https://w3id.org/geoshacl> .
 
 <https://w3id.org/geoshacl> rdf:type owl:Ontology ;
                              <http://purl.org/dc/terms/abstract> "Reusable SHACL constraint components for geospatial data based on GeoSPARQL." ;
@@ -899,8 +900,69 @@
     	        FILTER( geof:area($this)==?area)
             }
         """ ;
-           <http://www.w3.org/ns/shacl#message> "Check if the value for area given in the RDF graph is equal to the length calculated by the GeoSPARQL length function" .
+           <http://www.w3.org/ns/shacl#message> "Check if the value for area given in the RDF graph is equal to the area calculated by the GeoSPARQL geof:area function" .
 
+###  https://w3id.org/geoshacl#sfWithinConstraint
+gsh:geometryWithVolumeDimensionThreeConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "Ensures that a geometry with a given volume has a dimension of three or greater." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> geo:dimension
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> gsh:geometryWithVolumeDimensionThreeConstraintAskValidator .
+
+gsh:geometryWithVolumeDimensionThreeConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            ASK
+            WHERE {
+                ?g geo:hasVolume ?a ;
+                geo:dimension ?d .
+                FILTER (?d > 2)
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Geometry has an assigned volume but is not a 3D geometry." .
+
+
+###  https://w3id.org/geoshacl#sfWithinConstraint
+gsh:geometryWithLengthDimensionThreeConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "Ensures that a geometry with a given length has a dimension of two or greater." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> geo:dimension
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> gsh:geometryWithVolumeDimensionThreeConstraintAskValidator .
+
+gsh:geometryWithLengthDimensionTwoConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            ASK
+            WHERE {
+                ?g geo:hasLength ?a ;
+                geo:dimension ?d .
+                FILTER (?d > 2)
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Geometry has an assigned length but is not a 2D geometry." .
+
+###  https://w3id.org/geoshacl#sfWithinConstraint
+gsh:geometryWithAreaDimensionThreeConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "Ensures that a geometry with a given area has a dimension of two or greater." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> geo:dimension
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> gsh:geometryWithAreaDimensionThreeConstraintAskValidator .
+
+gsh:geometryWithAreaDimensionTwoConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            ASK
+            WHERE {
+                ?g geo:hasArea ?a ;
+                geo:dimension ?d .
+                FILTER (?d > 2)
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Geometry has an assigned area but is not a 2D geometry." .
+           
 ###  https://w3id.org/geoshacl#intuitiveEqualsConstraint
 :intuitiveEqualsConstraint rdf:type owl:NamedIndividual ,
                                     <http://www.w3.org/ns/shacl#ConstraintComponent> ;

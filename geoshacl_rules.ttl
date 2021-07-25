@@ -70,11 +70,11 @@
                 PREFIX geo:<http://www.opengis.net/ont/geosparql#> .
                 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>.
                 PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> .
-                SELECT ?isSimple
+                SELECT ?dimension
 				WHERE {
 					$this ?p ?seri .
 					?p rdfs:subPropertyOf* geo:hasSerialization .
-					BIND(geof:isSimple(?seri) AS ?isSimple)
+					BIND(geof:dimension(?seri) AS ?dimension)
 				}""" ;
 		] ;
 	] .	
