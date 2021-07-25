@@ -2,6 +2,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <https://w3id.org/geoshacl> .
@@ -235,6 +237,206 @@
           <http://www.w3.org/ns/shacl#message> "Value is not disjoint with {$disjoint}." .          
 
 
+:rcc8eqConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8eq\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8eq filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8eq
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8eqConstraintAskValidator .
+
+:rcc8eqConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8eq($value, $equals) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($equals) )
+        	    	$this $equals ?otherValue .
+        	    	FILTER( geof:rcc8eq($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$equals} (note: points cannot be equal as per GeoSPARQL)" .
+		  
+:rcc8dcConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8dc\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8dc filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8dc
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8dcConstraintAskValidator .
+
+:rcc8dcConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8dc($value, $disjoint) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($disjoint) )
+        	    	$this $disjoint ?otherValue .
+        	    	FILTER( geof:rcc8dc($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$disjoint} (note: points cannot be equal as per GeoSPARQL)" .
+		  
+:rcc8ecConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8ec\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8ec filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8ec
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8ecConstraintAskValidator .
+
+:rcc8ecConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8ec($value, $rcc8ec) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($rcc8ec) )
+        	    	$this $rcc8ec ?otherValue .
+        	    	FILTER( geof:rcc8ec($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$rcc8ec} (note: points cannot be equal as per GeoSPARQL)" .
+		  
+:rcc8poConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8po\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8po filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8po
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8poConstraintAskValidator .
+
+:rcc8poConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8po($value, $rcc8po) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($rcc8po) )
+        	    	$this $rcc8po ?otherValue .
+        	    	FILTER( geof:rcc8po($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$rcc8po} (note: points cannot be equal as per GeoSPARQL)" .
+		  
+:rcc8tppiConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8tppi\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8tppi filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8tppi
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8tppiConstraintAskValidator .
+
+:rcc8tppiConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8tppi($value, $rcc8tppi) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($rcc8tppi) )
+        	    	$this $rcc8tppi ?otherValue .
+        	    	FILTER( geof:rcc8tppi($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$rcc8tppi} (note: points cannot be equal as per GeoSPARQL)" .
+		  
+:rcc8tppConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8tpp\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8tpp filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8tpp
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8tppConstraintAskValidator .
+
+:rcc8tppConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8tpp($value, $rcc8tpp) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($rcc8tpp) )
+        	    	$this $rcc8tpp ?otherValue .
+        	    	FILTER( geof:rcc8tpp($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$rcc8tpp} (note: points cannot be equal as per GeoSPARQL)" .
+		  
+:rcc8ntppConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8ntpp\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8ntpp filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8ntpp
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8ntppConstraintAskValidator .
+
+:rcc8ntppConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8ntpp($value, $rcc8ntpp) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($rcc8ntpp) )
+        	    	$this $rcc8ntpp ?otherValue .
+        	    	FILTER( geof:rcc8ntpp($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$rcc8ntpp} (note: points cannot be equal as per GeoSPARQL)" .
+		  
+:rcc8ntppiConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8ntppi\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8ntppi filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8ntpp
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8ntppiConstraintAskValidator .
+
+:rcc8ntppiConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8ntppi($value, $rcc8ntppi) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($rcc8ntppi) )
+        	    	$this $rcc8ntppi ?otherValue .
+        	    	FILTER( geof:rcc8ntppi($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$rcc8ntppi} (note: points cannot be equal as per GeoSPARQL)" .
+
 ###  https://w3id.org/geoshacl#equalsConstraint
 :sfEqualsConstraint rdf:type owl:NamedIndividual ,
                            <http://www.w3.org/ns/shacl#ConstraintComponent> ;
@@ -337,8 +539,234 @@
         	    }
             }
         """ ;
-           <http://www.w3.org/ns/shacl#message> "Value does not intersect with {$intersects}." .           
+           <http://www.w3.org/ns/shacl#message> "Value does not intersect with {$meet}." .    
 
+:ehCoversConstraint rdf:type owl:NamedIndividual ,
+                               <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                      rdfs:comment "An implementation of the \"covers\" relationship between two geometries as per the Egenhofer standard. It is implemented using GeoSPARQL's geof:ehCovers filter function." ;
+                      <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :ehCovers
+                                                             ] ;
+                      <http://www.w3.org/ns/shacl#validator> :ehCoversConstraintAskValidator .
+
+:ehCoversConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:ehCovers($value, $ehCovers) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($ehCovers) )
+        	    	$this $ehCovers ?otherValue .
+        	    	FILTER( geof:ehCovers($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Value does not cover {$ehCovers}." .		   
+		   
+		   
+:ehOverlapConstraint rdf:type owl:NamedIndividual ,
+                               <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                      rdfs:comment "An implementation of the \"overlap\" relationship between two geometries as per the Egenhofer standard. It is implemented using GeoSPARQL's geof:ehOverlap filter function." ;
+                      <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :ehOverlap
+                                                             ] ;
+                      <http://www.w3.org/ns/shacl#validator> :ehOverlapConstraintAskValidator .
+
+:ehOverlapConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:ehOverlap($value, $ehoverlap) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($ehOverlap) )
+        	    	$this $ehOverlap ?otherValue .
+        	    	FILTER( geof:ehOverlap($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Value does not overlap {$ehOverlap}." .	
+		   
+		   
+:ehInsideConstraint rdf:type owl:NamedIndividual ,
+                               <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                      rdfs:comment "An implementation of the \"overlap\" relationship between two geometries as per the Egenhofer standard. It is implemented using GeoSPARQL's geof:ehInside filter function." ;
+                      <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :ehInside
+                                                             ] ;
+                      <http://www.w3.org/ns/shacl#validator> :ehInsideConstraintAskValidator .
+
+:ehInsideConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:ehInside($value, $ehinside) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($ehinside) )
+        	    	$this $ehinside ?otherValue .
+        	    	FILTER( geof:ehInside($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Value is not inside {$ehinside}." .	
+		   
+		   
+:ehCoveredByConstraint rdf:type owl:NamedIndividual ,
+                               <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                      rdfs:comment "An implementation of the \"coveredBy\" relationship between two geometries as per the Egenhofer standard. It is implemented using GeoSPARQL's geof:ehCoveredBy filter function." ;
+                      <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :ehCoveredBy
+                                                             ] ;
+                      <http://www.w3.org/ns/shacl#validator> :ehCoveredByConstraintAskValidator .
+
+:ehCoveredByConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:ehCoveredBy($value, $ehcoveredby) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($ehcoveredby) )
+        	    	$this $ehcoveredby ?otherValue .
+        	    	FILTER( geof:ehCoveredBy($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Value is not inside {$ehcoveredby}." .	
+
+
+:lengthFunctionConstraint rdf:type owl:NamedIndividual , sh:NodeShape;
+                           rdfs:comment "An implementation of the \"length\" relationship as a property of one geometry." ;
+						   sh:targetClass geo:Feature ;
+						   <http://www.w3.org/ns/shacl#validator> :lengthFunctionConstraintAskValidator .
+						   
+						   
+:lengthFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {            
+				$this geo:hasLength ?length .
+    	        FILTER( geof:length($this)==?length)
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Check if the value for length given in the RDF graph is equal to the length calculated by the GeoSPARQL length function" .
+		   
+
+:centroidFunctionConstraint rdf:type owl:NamedIndividual, <http://www.w3.org/ns/shacl#ConstraintComponent>;
+                           rdfs:comment "An implementation of the \"hasCentroid\" relationship as a property of one geometry." ;
+						   sh:targetClass geo:Geometry ;
+						   <http://www.w3.org/ns/shacl#validator> :centroidFunctionConstraintAskValidator .
+						   
+						   
+:centroidFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {            
+				$this geo:hasCentroid ?centroid .
+    	        FILTER( geof:sfEquals(geof:centroid($this),?centroid))
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Check if the value for geo:hasCentroid given in the RDF graph is equal to the result calculated by the GeoSPARQL geof:centroid function" .
+		   
+		   
+:boundingBoxFunctionConstraint rdf:type owl:NamedIndividual, <http://www.w3.org/ns/shacl#ConstraintComponent>;
+                           rdfs:comment "An implementation of the \"hasBouningBox\" relationship as a property of one geometry." ;
+						   sh:targetClass geo:Geometry ;
+						   <http://www.w3.org/ns/shacl#validator> :boundingBoxFunctionConstraintAskValidator .
+						   
+						   
+:boundingBoxFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {            
+				$this geo:envelope ?bbox .
+    	        FILTER( geof:sfEquals(geof:envelope($this),?envelope))
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Check if the value for geo:hasCentroid given in the RDF graph is equal to the result calculated by the GeoSPARQL geof:centroid function" .
+
+:dimensionFunctionConstraint rdf:type owl:NamedIndividual, <http://www.w3.org/ns/shacl#ConstraintComponent>;
+                           rdfs:comment "An implementation of the \"dimension\" relationship as a property of one geometry." ;
+						   sh:targetClass geo:Geometry ;
+						   <http://www.w3.org/ns/shacl#validator> :dimensionFunctionConstraintAskValidator .
+						   
+						   
+:dimensionFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {            
+				$this geo:dimension ?dimension .
+    	        FILTER( geof:dimension($this)==?dimension)
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Check if the value for geo:dimension given in the RDF graph is equal to the result calculated by the GeoSPARQL geof:dimension function" .
+		   
+:isEmptyFunctionConstraint rdf:type owl:NamedIndividual, <http://www.w3.org/ns/shacl#ConstraintComponent>;
+                           rdfs:comment "An implementation of the \"isEmpty\" relationship as a property of one geometry." ;
+						   sh:targetClass geo:Geometry ;
+						   <http://www.w3.org/ns/shacl#validator> :isEmptyFunctionConstraintAskValidator .
+						   
+						   
+:isEmptyFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {            
+				$this geo:isEmpty ?empty .
+    	        FILTER( geof:isEmpty($this)==?empty)
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Check if the value for geo:isEmpty given in the RDF graph is equal to the result calculated by the GeoSPARQL geof:isEmpty function" .
+		   
+		   
+:isSimpleFunctionConstraint rdf:type owl:NamedIndividual, <http://www.w3.org/ns/shacl#ConstraintComponent>;
+                           rdfs:comment "An implementation of the \"isSimple\" relationship as a property of one geometry." ;
+						   sh:targetClass geo:Geometry ;
+						   <http://www.w3.org/ns/shacl#validator> :isSimpleFunctionConstraintAskValidator .
+						   
+						   
+:isEmptyFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {            
+				$this geo:isSimple ?simple .
+    	        FILTER( geof:isSimple($this)==?simple)
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Check if the value for geo:isSimple given in the RDF graph is equal to the result calculated by the GeoSPARQL geof:isSimple function" .
+		   
+		   
+:areaFunctionConstraint rdf:type owl:NamedIndividual , sh:NodeShape;
+                           rdfs:comment "An implementation of the \"area\" relationship as a property of one geometry." ;
+						   sh:targetClass geo:Feature ;
+						   <http://www.w3.org/ns/shacl#validator> :areaFunctionConstraintAskValidator .
+						   
+						   
+:areaFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {            
+				$this geo:hasArea ?area .
+    	        FILTER( geof:area($this)==?area)
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Check if the value for area given in the RDF graph is equal to the length calculated by the GeoSPARQL length function" .
 
 ###  https://w3id.org/geoshacl#intuitiveEqualsConstraint
 :intuitiveEqualsConstraint rdf:type owl:NamedIndividual ,
@@ -346,9 +774,9 @@
                            rdfs:comment "An alternative implementation of the \"equals\" relationship between two geometries. The Simple Features Access and GeoSPARQL assume that two points can never be equivalent as their boundaries are empty and geometries must share the same non-empty boundary. This can be counter-intuitive. This implementation of \"equals\" is based on GeoSPARQL's sf:sfWithin and sf:sfContains filter functions." ;
                            <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :intuitiveEquals
                                                                   ] ;
-                           <http://www.w3.org/ns/shacl#validator> _:genid12 .
+                           <http://www.w3.org/ns/shacl#validator> :intuitiveEqualsConstraintAskValidator .
 
-_:genid12 rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+:intuitiveEqualsConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
            <http://www.w3.org/ns/shacl#ask> """
             PREFIX geo: <http://www.opengis.net/ont/geosparql#>
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
