@@ -23,7 +23,7 @@ jobs:
          mkdir docs
          cd docs
          pylode -i ../geoshacl.ttl -o index.html
-         pylode -i ../geoshaclrules.ttl -o index.html
+         pylode -i ../geoshacl_rules.ttl -o index.html
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
