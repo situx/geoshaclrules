@@ -261,7 +261,106 @@
         """ ;
           <http://www.w3.org/ns/shacl#message> "Value is not equal to {$equals} (note: points cannot be equal as per GeoSPARQL)" .
 
+:rcc8eqConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8eq\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8eq filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8eq
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8eqConstraintAskValidator .
 
+:rcc8eqConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8eq($value, $equals) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($equals) )
+        	    	$this $equals ?otherValue .
+        	    	FILTER( geof:rcc8eq($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$equals} (note: points cannot be equal as per GeoSPARQL)" .
+
+:rcc8dcConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8dc\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8dc filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8dc
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8dcConstraintAskValidator .
+
+:rcc8dcConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8dc($value, $equals) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($equals) )
+        	    	$this $equals ?otherValue .
+        	    	FILTER( geof:rcc8dc($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$equals} (note: points cannot be equal as per GeoSPARQL)" .
+          
+:rcc8poConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8po\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8po filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8po
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8poConstraintAskValidator .
+
+:rcc8poConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8po($value, $equals) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($equals) )
+        	    	$this $equals ?otherValue .
+        	    	FILTER( geof:rcc8po($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$equals} (note: points cannot be equal as per GeoSPARQL)" .
+          
+:rcc8ecConstraint rdf:type owl:NamedIndividual ,
+                           <http://www.w3.org/ns/shacl#ConstraintComponent> ;
+                  rdfs:comment "An implementation of the \"rcc8ec\" relationship between two geometries as per the RCC8 standard. It is implemented using GeoSPARQL's geof:rcc8ec filter function." ;
+                  <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> :rcc8ec
+                                                         ] ;
+                  <http://www.w3.org/ns/shacl#validator> :rcc8ecConstraintAskValidator .
+
+:rcc8ecConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+          <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {
+				{
+    	        	FILTER( geof:rcc8ec($value, $equals) )
+        	    }
+        	    UNION
+        	    {
+        	    	FILTER( isIRI($equals) )
+        	    	$this $equals ?otherValue .
+        	    	FILTER( geof:rcc8ec($value, ?otherValue) )
+        	    }
+            }
+        """ ;
+          <http://www.w3.org/ns/shacl#message> "Value is not equal to {$equals} (note: points cannot be equal as per GeoSPARQL)" .
+          
 :ehEqualsConstraint rdf:type owl:NamedIndividual ,
                            <http://www.w3.org/ns/shacl#ConstraintComponent> ;
                   rdfs:comment "An implementation of the \"equals\" relationship between two geometries as per the Egenhofer standard. It is implemented using GeoSPARQL's geof:ehEquals filter function." ;

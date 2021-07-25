@@ -1,13 +1,81 @@
-<http://atlantgis.squirrel.link/ontology#Feature> sh:rule [
-a sh:TripleRule ;
-sh:subject sh:this ;
-sh:predicate geo:sfEquals ;
-sh:object true ; 
+@prefix : <https://w3id.org/geoshacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#>.
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <http://www.example.com/data/> .
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@base <https://w3id.org/geoshacl> .
 
-sh:condition [
- sh:property [
- sh:path <http://atlantgis.squirrel.link/ontology#sfEquals> ;
-sh:value "true"^^xsd:boolean 
-];
-];
-]. 
+	
+:GeometryEmptyNodeShape rdf:type sh:NodeShape;
+    sh:targetClass geo:Geometry ;
+	sh:property [
+		sh:path geo:isEmpty ;
+		sh:datatype xsd:boolean ;
+		sh:description "Indicates if the geometry is empty." ;
+		sh:maxCount 1 ;
+		sh:name "isEmpty" ;
+		sh:values [
+			sh:prefixes <http://topbraid.org/examples/schemashacl> ;
+			sh:select """
+                PREFIX geo:<http://www.opengis.net/ont/geosparql#> .
+                PREFIX geof: <http://www.opengis.net/def/function/geosparql/>.
+                PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> .
+                SELECT ?isEmpty
+				WHERE {
+					$this ?p ?seri .
+					?p rdfs:subPropertyOf* geo:hasSerialization .
+					BIND(geof:isEmpty(?seri) AS ?isEmpty)
+				}""" ;
+		] ;
+	] .
+	
+:GeometrySimpleNodeShape rdf:type sh:NodeShape;
+    sh:targetClass geo:Geometry ;
+	sh:property [
+		sh:path geo:isSimple ;
+		sh:datatype xsd:boolean ;
+		sh:description "Indicates if the geometry is simple." ;
+		sh:maxCount 1 ;
+		sh:name "isSimple" ;
+		sh:values [
+			sh:prefixes <http://topbraid.org/examples/schemashacl> ;
+			sh:select """
+                PREFIX geo:<http://www.opengis.net/ont/geosparql#> .
+                PREFIX geof: <http://www.opengis.net/def/function/geosparql/>.
+                PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> .
+                SELECT ?isSimple
+				WHERE {
+					$this ?p ?seri .
+					?p rdfs:subPropertyOf* geo:hasSerialization .
+					BIND(geof:isSimple(?seri) AS ?isSimple)
+				}""" ;
+		] ;
+	] .
+
+:GeometryDimensionNodeShape rdf:type sh:NodeShape;
+    sh:targetClass geo:Geometry ;
+	sh:property [
+		sh:path geo:dimension ;
+		sh:datatype xsd:integer ;
+		sh:description "Indicates the dimenionality of the geometry." ;
+		sh:maxCount 1 ;
+		sh:name "dimension" ;
+		sh:values [
+			sh:prefixes <http://topbraid.org/examples/schemashacl> ;
+			sh:select """
+                PREFIX geo:<http://www.opengis.net/ont/geosparql#> .
+                PREFIX geof: <http://www.opengis.net/def/function/geosparql/>.
+                PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> .
+                SELECT ?isSimple
+				WHERE {
+					$this ?p ?seri .
+					?p rdfs:subPropertyOf* geo:hasSerialization .
+					BIND(geof:isSimple(?seri) AS ?isSimple)
+				}""" ;
+		] ;
+	] .	
