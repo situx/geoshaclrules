@@ -11,3 +11,24 @@ sh:value "true"^^xsd:boolean
 ];
 ];
 ]. 
+
+schema:Person
+	sh:property [
+		sh:path schema:age ;
+		sh:datatype xsd:integer ;
+		sh:description "A person's age derived from the current date and the given birth date. No value if the person is already deceased." ;
+		sh:maxCount 1 ;
+		sh:name "age" ;
+		sh:values [
+			sh:prefixes <http://topbraid.org/examples/schemashacl> ;
+			sh:select """
+				SELECT ?age
+				WHERE {
+					$this schema:birthDate ?birthDate .
+					FILTER NOT EXISTS { $this schema:deathDate ?any }
+					BIND (365 * 24 * 60 * 60 * 1000 AS ?msPerYear) .
+					BIND (spif:timeMillis(NOW()) - spif:timeMillis(?birthDate) AS ?ms)
+					BIND (xsd:integer(floor(?ms / ?msPerYear)) AS ?age)
+				}""" ;
+		] ;
+	] .

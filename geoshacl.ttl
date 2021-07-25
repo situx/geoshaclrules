@@ -645,6 +645,40 @@
            <http://www.w3.org/ns/shacl#message> "Value is not inside {$ehcoveredby}." .	
 
 
+:dimensionOneConstraint rdf:type owl:NamedIndividual , sh:NodeShape;
+                           rdfs:comment "An implementation of the \"dimension\" relationship as a property of one geometry." ;
+						   sh:targetClass geo:Point ;
+						   <http://www.w3.org/ns/shacl#validator> :dimensionTwoConstraintAskValidator .
+						   
+						   
+:dimensionOneFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {            
+				$this geo:dimension ?dimension .
+    	        FILTER( ?dimension==1 || ?dimension )
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Checks that a geometry of type Point can only have a dimension indication of 1" .
+
+:dimensionTwoConstraint rdf:type owl:NamedIndividual , sh:NodeShape;
+                           rdfs:comment "An implementation of the \"length\" relationship as a property of one geometry." ;
+						   sh:targetClass geo:Polygon ;
+						   <http://www.w3.org/ns/shacl#validator> :dimensionTwoConstraintAskValidator .
+						   
+						   
+:dimensionTwoFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+           <http://www.w3.org/ns/shacl#ask> """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+            ASK {            
+				$this geo:dimension ?dimension .
+    	        FILTER( ?dimension>=2)
+            }
+        """ ;
+           <http://www.w3.org/ns/shacl#message> "Checks that if a Polygon has a dimension indication, its value should at least be two." .
+
 :lengthFunctionConstraint rdf:type owl:NamedIndividual , sh:NodeShape;
                            rdfs:comment "An implementation of the \"length\" relationship as a property of one geometry." ;
 						   sh:targetClass geo:Feature ;
