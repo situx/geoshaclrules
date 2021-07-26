@@ -1,4 +1,4 @@
-@prefix : <https://w3id.org/geoshaclrules#> .
+@prefix gsh: <https://w3id.org/geoshaclrules#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -12,9 +12,9 @@
 @base <https://w3id.org/geoshaclrules> .
 	
 	
-<https://w3id.org/geoshaclrules> rdf:type owl:Ontology ;
+<https://w3id.org/geoshaclrules> rdf:type owl:Ontology .
 	
-:GeometryEmptyNodeShape rdf:type sh:NodeShape;
+gsh:GeometryEmptyNodeShape rdf:type sh:NodeShape;
     sh:targetClass geo:Geometry ;
 	sh:property [
 		sh:path geo:isEmpty ;
@@ -37,7 +37,7 @@
 		] ;
 	] .
 	
-:GeometrySimpleNodeShape rdf:type sh:NodeShape;
+gsh:GeometrySimpleNodeShape rdf:type sh:NodeShape;
     sh:targetClass geo:Geometry ;
 	sh:property [
 		sh:path geo:isSimple ;
@@ -60,7 +60,7 @@
 		] ;
 	] .
 
-:GeometryDimensionNodeShape rdf:type sh:NodeShape;
+gsh:GeometryDimensionNodeShape rdf:type sh:NodeShape;
     sh:targetClass geo:Geometry ;
 	sh:property [
 		sh:path geo:dimension ;
