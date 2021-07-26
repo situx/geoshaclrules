@@ -12,7 +12,8 @@
 @base <https://w3id.org/geoshaclrules> .
 	
 	
-<https://w3id.org/geoshaclrules> rdf:type owl:Ontology .
+<https://w3id.org/geoshaclrules> rdf:type owl:Ontology ;
+	rdfs:label "GeoSHACL Rules" .
 	
 gsh:GeometryEmptyNodeShape rdf:type sh:NodeShape;
     sh:targetClass geo:Geometry ;
