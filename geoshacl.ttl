@@ -757,10 +757,10 @@
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
             ASK {            
 				$this geo:dimension ?dimension .
-    	        FILTER( ?dimension==1 || ?dimension )
+    	        FILTER( ?dimension>2 )
             }
         """ ;
-           <http://www.w3.org/ns/shacl#message> "Checks that a geometry of type Point can only have a dimension indication of 1" .
+           <http://www.w3.org/ns/shacl#message> "Checks that a geometry of type Point can have at least a dimension of 2" .
 
 :dimensionTwoConstraint rdf:type owl:NamedIndividual , sh:NodeShape;
                            rdfs:comment "An implementation of the \"length\" relationship as a property of one geometry." ;
@@ -873,7 +873,7 @@
 						   <http://www.w3.org/ns/shacl#validator> :isSimpleFunctionConstraintAskValidator .
 						   
 						   
-:isEmptyFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
+:isSimpleFunctionConstraintAskValidator rdf:type <http://www.w3.org/ns/shacl#SPARQLAskValidator> ;
            <http://www.w3.org/ns/shacl#ask> """
             PREFIX geo: <http://www.opengis.net/ont/geosparql#>
             PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
@@ -924,7 +924,7 @@ gsh:geometryWithVolumeDimensionThreeConstraintAskValidator rdf:type <http://www.
 
 
 ###  https://w3id.org/geoshacl#sfWithinConstraint
-gsh:geometryWithLengthDimensionThreeConstraint rdf:type owl:NamedIndividual ,
+gsh:geometryWithLengthDimensionTwoConstraint rdf:type owl:NamedIndividual ,
                            <http://www.w3.org/ns/shacl#ConstraintComponent> ;
                   rdfs:comment "Ensures that a geometry with a given length has a dimension of two or greater." ;
                   <http://www.w3.org/ns/shacl#parameter> [ <http://www.w3.org/ns/shacl#path> geo:dimension

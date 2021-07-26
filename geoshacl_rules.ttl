@@ -1,14 +1,18 @@
-@prefix : <https://w3id.org/geoshacl#> .
+@prefix : <https://w3id.org/geoshaclrules#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix geosparql: <http://www.opengis.net/ont/geosparql#>.
+@prefix geo: <http://www.opengis.net/ont/geosparql#>.
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ex: <http://www.example.com/data/> .
 @prefix geof: <http://www.opengis.net/def/function/geosparql/>.
-@base <https://w3id.org/geoshacl> .
+@base <https://w3id.org/geoshaclrules> .
+	
+	
+<https://w3id.org/geoshaclrules> rdf:type owl:Ontology ;
 	
 :GeometryEmptyNodeShape rdf:type sh:NodeShape;
     sh:targetClass geo:Geometry ;
@@ -28,7 +32,7 @@
 				WHERE {
 					$this ?p ?seri .
 					?p rdfs:subPropertyOf* geo:hasSerialization .
-					BIND(geof:isEmpty(?seri) AS ?isEmpty)
+					BIND(geof:isEmpty($this) AS ?isEmpty)
 				}""" ;
 		] ;
 	] .
